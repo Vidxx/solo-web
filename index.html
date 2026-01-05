@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simple TON Website</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0b0b0b;
+      color: #ffffff;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 60px 20px;
+    }
+    h1 {
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 18px;
+      opacity: 0.85;
+    }
+    .card {
+      background: #141414;
+      border-radius: 16px;
+      padding: 30px;
+      margin-top: 30px;
+    }
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 14px 26px;
+      background: #0098ea;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 10px;
+      font-weight: bold;
+    }
+    footer {
+      margin-top: 60px;
+      font-size: 14px;
+      opacity: 0.5;
+    }
+    .lang-switcher {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #141414;
+      border: 1px solid #333;
+      border-radius: 8px;
+      padding: 8px;
+      z-index: 1000;
+    }
+    .lang-btn {
+      background: transparent;
+      border: none;
+      color: #fff;
+      padding: 8px 12px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background 0.3s;
+    }
+    .lang-btn:hover {
+      background: #333;
+    }
+    .lang-btn.active {
+      background: #0098ea;
+    }
+    [data-lang="en"] {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="lang-switcher">
+    <button class="lang-btn active" onclick="setLanguage('ru')">RU</button>
+    <button class="lang-btn" onclick="setLanguage('en')">EN</button>
+  </div>
+  
+  <div class="container">
+    <h1>
+      <span data-lang="ru">Быстрые сайты для TON & Telegram</span>
+      <span data-lang="en">Fast Websites for TON & Telegram</span>
+    </h1>
+    <p>
+      <span data-lang="ru">Просто. Чисто. Готово за 24 часа.</span>
+      <span data-lang="en">Simple. Clean. Ready in 24 hours.</span>
+    </p>
+
+    <div class="card">
+      <h2>
+        <span data-lang="ru">Что я делаю</span>
+        <span data-lang="en">What I do</span>
+      </h2>
+      <p>
+        <span data-lang="ru">
+          Создаю легкие лендинги и простые сайты для Telegram и TON проектов.
+          Без излишеств. Только то, что нужно для запуска.
+        </span>
+        <span data-lang="en">
+          I create lightweight landing pages and simple websites for Telegram and TON projects.
+          No overengineering. Just what you need to launch.
+        </span>
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>
+        <span data-lang="ru">Что вы получите</span>
+        <span data-lang="en">What you get</span>
+      </h2>
+      <p>
+        <span data-lang="ru">
+          • Сайт на одной странице<br />
+          • Адаптивный дизайн<br />
+          • Быстрая загрузка<br />
+          • Оплата в TON
+        </span>
+        <span data-lang="en">
+          • One-page website<br />
+          • Mobile friendly<br />
+          • Fast loading<br />
+          • Payment in TON
+        </span>
+      </p>
+      <a class="btn" href="https://web.telegram.org/a/#8249947288">
+        <span data-lang="ru">Связаться со мной</span>
+        <span data-lang="en">Contact me</span>
+      </a>
+    </div>
+
+    <footer>
+      <span data-lang="ru">Соло веб-разработчик • Принимаю TON</span>
+      <span data-lang="en">Solo web creator • TON accepted</span>
+    </footer>
+  </div>
+
+  <script>
+    function setLanguage(lang) {
+      // Сохраняем выбор в localStorage
+      localStorage.setItem('selectedLanguage', lang);
+      
+      // Обновляем активную кнопку
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      event.target.classList.add('active');
+      
+      // Показываем/скрываем элементы в зависимости от языка
+      document.querySelectorAll('[data-lang]').forEach(element => {
+        if (element.getAttribute('data-lang') === lang) {
+          element.style.display = 'inline';
+        } else {
+          element.style.display = 'none';
+        }
+      });
+      
+      // Обновляем атрибут lang у html
+      document.documentElement.setAttribute('lang', lang);
+    }
+    
+    // Загружаем сохраненный язык при загрузке страницы
+    document.addEventListener('DOMContentLoaded', function() {
+      const savedLang = localStorage.getItem('selectedLanguage') || 'ru';
+      
+      // Устанавливаем активную кнопку
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.textContent.toLowerCase().includes(savedLang)) {
+          btn.classList.add('active');
+        }
+      });
+      
+      // Показываем элементы для сохраненного языка
+      document.querySelectorAll('[data-lang]').forEach(element => {
+        if (element.getAttribute('data-lang') === savedLang) {
+          element.style.display = 'inline';
+        } else {
+          element.style.display = 'none';
+        }
+      });
+      
+      // Обновляем атрибут lang у html
+      document.documentElement.setAttribute('lang', savedLang);
+    });
+  </script>
+</body>
+</html>
